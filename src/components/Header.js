@@ -36,7 +36,7 @@ const Header = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <div className="header-items">
       <div className="logo">
-        <img src={Logo} alt="logo" />
+        <img src={Logo} onClick={()=>navigate('/')} alt="logo" />
       </div>
       {data.map((category) => (
         <div
