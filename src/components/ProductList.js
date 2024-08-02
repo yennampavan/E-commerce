@@ -25,7 +25,11 @@ const ProductList = ({ selectedCategory }) => {
     fetch(`https://fakestoreapi.com/products/category/${category}`)
       .then((res) => res.json())
       .then((json) => {
-        setProducts(json);
+        if (Array.isArray(json)) {
+          setProducts(json);
+        } else {
+          console.error("Fetched products are not an array:", json);
+        }
         setLoading(false);
       });
   }, [selectedCategory]);
@@ -42,9 +46,13 @@ const ProductList = ({ selectedCategory }) => {
 
   return (
     <div className="products">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+      {Array.isArray(products) ? (
+        products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))
+      ) : (
+        <div>Error loading products</div>
+      )}
     </div>
   );
 };

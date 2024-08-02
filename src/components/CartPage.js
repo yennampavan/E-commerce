@@ -1,7 +1,7 @@
-// src/components/CartPage.js
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../store/cart";
+import './CartPage.css'
 
 const CartPage = () => {
   const cart = useSelector((state) => state.cart);
@@ -15,7 +15,6 @@ const CartPage = () => {
     dispatch(removeFromCart(item));
   };
 
-  // Calculate total
   const totalAmount = Object.values(cart).reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
@@ -27,13 +26,13 @@ const CartPage = () => {
             <img src={item.image} alt={item.title} />
             <div>
               <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              <p>Category: {item.category}</p>
-              <p>Price: ${item.price}</p>
-              <p>Quantity: {item.quantity}</p>
+              {/* <p>{item.description}</p> */}
+              <p><b>Category:</b> {item.category}</p>
+              <p><b>Price:</b> ${item.price}</p>
+              <p><b>Quantity:</b> {item.quantity}</p>
               <div className="cart-item-actions">
                 <button className="add-to-cart" onClick={() => handleAdd(item)}>+</button>
-                <a>{item.quantity}</a>
+                <span>{item.quantity}</span>
                 <button className="add-to-cart" onClick={() => handleRemove(item)}>-</button>
               </div>
             </div>
