@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState("electronics");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   return (
     <Provider store={store}>

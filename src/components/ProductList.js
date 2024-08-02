@@ -18,21 +18,34 @@ const ShimmerCard = () => (
 const ProductList = ({ selectedCategory }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const category = selectedCategory || "electronics";
+  const [searchQuery, setSearchQuery] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 1000]); // Adjust default range as needed
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://fakestoreapi.com/products/category/${category}`)
+    const url =
+      selectedCategory === "all"
+        ? "https://fakestoreapi.com/products"
+        : `https://fakestoreapi.com/products/category/${selectedCategory}`;
+    fetch(url)
       .then((res) => res.json())
       .then((json) => {
-        if (Array.isArray(json)) {
-          setProducts(json);
-        } else {
-          console.error("Fetched products are not an array:", json);
-        }
+        setProducts(json);
         setLoading(false);
       });
   }, [selectedCategory]);
+
+  const filteredProducts =
+    selectedCategory === "all"
+      ? products
+          .filter((product) =>
+            product.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .filter((product) => {
+            const [minPrice, maxPrice] = priceRange;
+            return product.price >= minPrice && product.price <= maxPrice;
+          })
+      : products;
 
   if (loading) {
     return (
@@ -46,13 +59,50 @@ const ProductList = ({ selectedCategory }) => {
 
   return (
     <div className="products">
-      {Array.isArray(products) ? (
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))
-      ) : (
-        <div>Error loading products</div>
+      {selectedCategory === "all" && (
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+          <div className="range-filters">
+            <label>
+              Min Price: ${priceRange[0]}
+              <input
+                type="range"
+                min="0"
+                max="1000"
+                step="10"
+                value={priceRange[0]}
+                onChange={(e) =>
+                  setPriceRange([Number(e.target.value), priceRange[1]])
+                }
+                className="range-input"
+              />
+            </label>
+            <label>
+              Max Price: ${priceRange[1]}
+              <input
+                type="range"
+                min="0"
+                max="1000"
+                step="10"
+                value={priceRange[1]}
+                onChange={(e) =>
+                  setPriceRange([priceRange[0], Number(e.target.value)])
+                }
+                className="range-input"
+              />
+            </label>
+          </div>
+        </div>
       )}
+      {filteredProducts.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
     </div>
   );
 };

@@ -15,6 +15,7 @@
   align-items: center;
 }
 
+
 .header-items a {
   text-decoration: none;
 }
@@ -202,4 +203,46 @@
   padding: 1rem;
   border-top: 1px solid #ddd;
 }
+
+.search-input {
+  width: 70%;
+  height: 50px;
+  font-size: 20px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #000000;
+  border-radius: 6px;
+}
+
+.filters {
+  margin-bottom: 1rem;
+  /* background: red; */
+  width: 100%;
+
+}
+
+.filter-input {
+  width: 10%;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.range-filters {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.range-input {
+  width: 50%;
+  margin: 0.5rem 0;
+}
+
+.filters label {
+  display: block;
+  margin: 0.5rem 0;
+}
+
 

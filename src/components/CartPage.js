@@ -40,6 +40,7 @@ const CartPage = () => {
         ))}
       </div>
       <div className="cart-total">
+        <p>{console.log(cart.length)}</p>
         <h2>Total: ${totalAmount.toFixed(2)}</h2>
       </div>
     </div>
