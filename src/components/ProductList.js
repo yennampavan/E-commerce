@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ShimmerCard = () => (
   <div className="loading-card">
@@ -15,11 +17,12 @@ const ShimmerCard = () => (
   </div>
 );
 
-const ProductList = ({ selectedCategory }) => {
+const ProductList = ({ selectedCategory,item ,setItem}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [priceRange, setPriceRange] = useState([0, 1000]); // Adjust default range as needed
+  const navigate=useNavigate()
 
   useEffect(() => {
     setLoading(true);
@@ -101,7 +104,13 @@ const ProductList = ({ selectedCategory }) => {
         </div>
       )}
       {filteredProducts.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <div>
+          <div>
+        <ProductCard item={item} setItem={setItem} key={product.id} product={product} />
+        </div>
+        </div>
+        
+       
       ))}
     </div>
   );

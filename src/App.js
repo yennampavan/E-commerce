@@ -6,9 +6,12 @@ import ProductList from "./components/ProductList";
 import Cart from "./components/CartPage";
 import { Provider } from "react-redux";
 import store from "./store";
+import ProductPage from "./components/ProductPage";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [productid,setProductid] = useState()
+  const [item,setItem]=useState({})
 
   return (
     <Provider store={store}>
@@ -21,9 +24,10 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<ProductList selectedCategory={selectedCategory} />}
+              element={<ProductList  selectedCategory={selectedCategory} item={item} setItem={setItem}/>}
             />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/productid/:id" element={<ProductPage item={item} />} />
           </Routes>
         </div>
       </Router>

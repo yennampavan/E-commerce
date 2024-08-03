@@ -31,9 +31,9 @@ const CartPage = () => {
               <p><b>Price:</b> ${item.price}</p>
               <p><b>Quantity:</b> {item.quantity}</p>
               <div className="cart-item-actions">
-                <button className="add-to-cart" onClick={() => handleAdd(item)}>+</button>
-                <span>{item.quantity}</span>
                 <button className="add-to-cart" onClick={() => handleRemove(item)}>-</button>
+                <span>{item.quantity}</span>
+                <button className="add-to-cart" onClick={() => handleAdd(item)}>+</button>
               </div>
             </div>
           </div>
